@@ -34,6 +34,7 @@ if __name__ == "__main__":
         student.enrol_subject("AI")
         student.enrol_subject("Maths")
 
+#Test subject lists
         print("--- Subject List ---")
         for subj in student.subjects:
             print(f"{subj.name} - Mark: {subj.mark}, Grade: {subj.grade}")
