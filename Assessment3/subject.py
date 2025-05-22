@@ -21,15 +21,3 @@ class Subject:
             return "P"
         else:
             return "F"
-
-if __name__ == "__main__":
-    subject_list = [
-        "Programming Fundamentals",
-        "Data Structures",
-        "Algorithms",
-        "Software Engineering"
-    ]
-
-    for name in subject_list:
-        s = Subject(name)
-        print(f"Subject: {s.name}, ID: {s.id}, Mark: {s.mark}, Grade: {s.grade}")
