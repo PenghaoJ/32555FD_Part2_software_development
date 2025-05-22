@@ -56,5 +56,16 @@ class StudentController:
         if not student:
             return "Student not found."
         if bcrypt.checkpw(password.encode(), student.password.encode()):
-            return f"Welcome back, {student.name}!"
+            return student
         return "Invalid password."
+
+    def change_password(self, student, old_password, new_password):
+        # 修改密码逻辑
+        if not bcrypt.checkpw(old_password.encode(), student.password.encode()):
+            return "Current password is incorrect."
+        password_validation = AuthValidator.validate_password(new_password)
+        if not password_validation["valid"]:
+            return f"New password errors: {', '.join(password_validation['errors'])}"
+        student.password = AuthValidator.hash_password(new_password)
+        self.db.save_students(self.db.load_students())
+        return "Password changed successfully."
