@@ -19,10 +19,11 @@ class AuthValidator:
         return bool(re.fullmatch(pattern, email))
 
     @staticmethod
-    def validate_password(password: str): #验证密码格式
-        pattern = r'^[A-Z][a-zA-Z]{4,}\d{3,}$'
+    def validate_password(password: str):  # 验证密码格式
+        pattern = r'^[A-Z][a-zA-Z]{4,}[0-9]{3,}$'
         if not re.fullmatch(pattern, password):
-            return {"valid": False, "errors": ["The password must start with an uppercase letter, followed by 5 letters and 3 digits."]}
+            return {"valid": False,
+                    "errors": ["The password must start with an uppercase letter, followed by 5 letters and 3 digits."]}
         return {"valid": True, "errors": []}
 
 
