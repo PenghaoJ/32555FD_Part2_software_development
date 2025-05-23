@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3bd8da3-7055-4ac9-822d-e8250440c9fb" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assessment3/Controllers/student_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/Assessment3/Controllers/student_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assessment3/Moudels/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/Assessment3/Moudels/database.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assessment3/Moudels/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/Assessment3/Moudels/student.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assessment3/Moudels/subject.py" beforeDir="false" afterPath="$PROJECT_DIR$/Assessment3/Moudels/subject.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assessment3/students.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/students.data" beforeDir="false" />
-    </list>
+    <list default="true" id="b3bd8da3-7055-4ac9-822d-e8250440c9fb" name="更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,6 +45,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.fileTypes",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
