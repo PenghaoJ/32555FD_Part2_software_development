@@ -14,15 +14,12 @@ from Assessment3.Moudels.database import Database  # 从 database.py 导入 Data
 # 验证器类
 class AuthValidator:
     @staticmethod
-    def validate_email(email: str):
-        """
-        验证邮箱格式是否正确。
-        """
+    def validate_email(email: str):  #验证邮箱格式
         pattern = r'^[\w\.-]+@university\.com$'
         return bool(re.fullmatch(pattern, email))
 
     @staticmethod
-    def validate_password(password: str):
+    def validate_password(password: str): #验证密码格式
         pattern = r'^[A-Z][a-zA-Z]{4,}\d{3,}$'
         if not re.fullmatch(pattern, password):
             return {"valid": False, "errors": ["The password must start with an uppercase letter, followed by 5 letters and 3 digits."]}
