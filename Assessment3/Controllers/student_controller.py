@@ -19,31 +19,36 @@ class AuthValidator:
         return bool(re.fullmatch(pattern, email))
 
     @staticmethod
-    def validate_password(password: str):  # 验证密码格式
+    def validate_password(password: str):  # 验证密码格式 # new edit
         pattern = r'^[A-Z][a-zA-Z]{4,}[0-9]{3,}$'
         if not re.fullmatch(pattern, password):
             return {"valid": False,
-                    "errors": ["The password must start with an uppercase letter, followed by 5 letters and 3 digits."]}
+                    "errors": ["The password must start with an uppercase letter, followed by 5 letters and at least 3 digits."]}
         return {"valid": True, "errors": []}
 
 
 # 异常类
 class AgainEnrollError(Exception):
-    """重复注册异常"""
+    #重复注册异常
     def __init__(self, username_or_email):
         super().__init__(f"{username_or_email} is already existing")
 
 
 class EmailFormError(Exception):
-    """邮箱格式异常"""
+    #邮箱格式异常
     def __init__(self, email):
         super().__init__(f"{email} form error")
 
 
 class PasswordError(Exception):
-    """密码异常"""
+    #密码异常
     def __init__(self, errors):
         super().__init__("Password error: " + ", ".join(errors))
+
+class PasswordMismatchError(Exception):
+    #密码不一致异常# new add
+    def __init__(self):
+        super().__init__("Passwords do not match")
 
 
 # 学生登录系统
@@ -120,6 +125,12 @@ class StudentLoginSystem:
                     username = input("Username: ")
                     email = input("Email: ")
                     password = input("Password: ")
+                    confirm_password = input("Confirm Password: ")  # 新增二次密码输入 #new add
+
+                    # 检查两次密码一致性[3,5](@ref)
+                    if password != confirm_password:
+                        raise PasswordMismatchError()
+
                     self.register(username, email, password)
                     print("Registration successful!")
 
