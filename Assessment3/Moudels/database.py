@@ -1,14 +1,16 @@
 import os
 import json
 from Assessment3.Moudels.student import Student
+from Assessment3.Moudels.subject import Subject
 
 class Database:
-    FILE_PATH = "students.data"
+    FILE_PATH = "Assessment3/students.data"
 
     def __init__(self):
         if not os.path.exists(self.FILE_PATH):
+            os.makedirs(os.path.dirname(self.FILE_PATH), exist_ok=True)
             with open(self.FILE_PATH, "w") as f:
-                f.write("")
+                json.dump([], f)
 
     def load_all_students(self) -> list:
         students = []
@@ -56,12 +58,44 @@ class Database:
         self.save_all_students(students)
 
     def update_student(self, email: str, new_data: dict):
-        students = self.load_all_students()
+        """
+        根据学生邮箱更新学生信息
+        """
+        students = self.load_all_students()  # 加载所有学生数据
         for i, s in enumerate(students):
-            if s["email"] == email:
-                students[i] = {**s,  ** new_data}
+            if s["email"] == email:  # 根据邮箱匹配
+                students[i] = {**s, **new_data}  # 合并旧数据和新数据
+                print(f"Student with email {email} has been updated.")
                 break
-        self.save_all_students(students)
+        else:
+            print(f"Student with email {email} not found. No update performed.")
+        self.save_all_students(students)  # 保存更新后的学生数据
+
+    def update_student_by_data(self, student_data):
+        """
+        根据学生数据更新学生信息
+        """
+        students = self.load_all_students()  # 加载所有学生数据
+        for i, student in enumerate(students):
+            if student["id"] == student_data["id"]:  # 根据学生 ID 匹配
+                students[i] = student_data  # 更新学生数据
+                break
+        else:
+            print(f"Student with ID {student_data['id']} not found. No update performed.")
+        self.save_all_students(students)  # 保存更新后的学生数据
+
+    def remove_student_by_id(self, student_id):
+        """
+        根据学生 ID 删除学生
+        """
+        students = self.load_all_students()  # 加载所有学生数据
+        initial_count = len(students)
+        students = [s for s in students if s["id"] != student_id]  # 过滤掉指定 ID 的学生
+        if len(students) < initial_count:
+            print(f"Student with ID {student_id} has been removed.")
+        else:
+            print(f"Student with ID {student_id} not found. No deletion performed.")
+        self.save_all_students(students)  # 保存更新后的学生数据
 
 # if __name__ == "__main__":
 #     db = Database()
