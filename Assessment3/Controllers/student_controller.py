@@ -18,28 +18,15 @@ class AuthValidator:
         """
         验证邮箱格式是否正确。
         """
-        pattern = r'^[\w\.-]+@[\w\.-]+\.[a-zA-Z]{2,}$'
+        pattern = r'^[\w\.-]+@university\.com$'
         return bool(re.fullmatch(pattern, email))
 
     @staticmethod
     def validate_password(password: str):
-        """
-        验证密码是否符合要求：
-        - 至少 8 个字符
-        - 至少包含一个大写字母、一个小写字母、一个数字和一个特殊字符
-        """
-        errors = []
-        if len(password) < 8:
-            errors.append("Password length must be at least 8 characters.")
-        if not re.search(r'[A-Z]', password):
-            errors.append("Password must contain at least one uppercase letter.")
-        if not re.search(r'[a-z]', password):
-            errors.append("Password must contain at least one lowercase letter.")
-        if not re.search(r'\d', password):
-            errors.append("Password must contain at least one number.")
-        if not re.search(r'[\W_]', password):
-            errors.append("Password must contain at least one special character.")
-        return {"valid": len(errors) == 0, "errors": errors}
+        pattern = r'^[A-Z][a-zA-Z]{4,}\d{3,}$'
+        if not re.fullmatch(pattern, password):
+            return {"valid": False, "errors": ["The password must start with an uppercase letter, followed by 5 letters and 3 digits."]}
+        return {"valid": True, "errors": []}
 
 
 # 异常类
