@@ -14,8 +14,11 @@ from Assessment3.Moudels.database import Database  # 从 database.py 导入 Data
 # 验证器类
 class AuthValidator:
     @staticmethod
-    def validate_email(email: str):  #验证邮箱格式
-        pattern = r'^[\w\.-]+@university\.com$'
+    def validate_email(username: str, email: str):  # 新增username参数
+        # 转义用户名中的正则特殊字符（如.或*）
+        escaped_username = re.escape(username)
+        # 匹配"用户名+任意数字或者字母@university.com"
+        pattern = rf'^{escaped_username}[a-zA-Z0-9]+@university\.com$'
         return bool(re.fullmatch(pattern, email))
 
     @staticmethod
@@ -23,7 +26,7 @@ class AuthValidator:
         pattern = r'^[A-Z][a-zA-Z]{4,}[0-9]{3,}$'
         if not re.fullmatch(pattern, password):
             return {"valid": False,
-                    "errors": ["The password must start with an uppercase letter, followed by 5 letters and at least 3 digits."]}
+                    "errors": ["The password must start with an uppercase letter. followed by 5 letters and at least 3 digits."]}
         return {"valid": True, "errors": []}
 
 
@@ -37,7 +40,7 @@ class AgainEnrollError(Exception):
 class EmailFormError(Exception):
     #邮箱格式异常
     def __init__(self, email):
-        super().__init__(f"{email} form error")
+        super().__init__(f"email must [username+(number/letter)@university.com] form")
 
 
 class PasswordError(Exception):
@@ -64,7 +67,7 @@ class StudentLoginSystem:
         - 检查用户名和邮箱是否已存在
         - 保存到数据库
         """
-        if not AuthValidator.validate_email(email):
+        if not AuthValidator.validate_email(username, email):#邮箱格式必须为：用户名+任意@university.com # new add
             raise EmailFormError(email)
 
         pwd_check = AuthValidator.validate_password(password)
@@ -72,8 +75,10 @@ class StudentLoginSystem:
             raise PasswordError(pwd_check['errors'])
 
         students = self.db.load_all_students()
+        '''
         if any(s["name"] == username for s in students):
             raise AgainEnrollError(f"Username '{username}'")
+        '''
         if any(s["email"] == email for s in students):
             raise AgainEnrollError(f"Email '{email}'")
 
