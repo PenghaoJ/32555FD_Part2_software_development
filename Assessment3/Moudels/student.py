@@ -5,12 +5,21 @@ class Student:
     # 类变量，用于存储已生成的 ID，确保不重复
     generated_ids = set()
 
-    def __init__(self, name, email, password):
+    def __init__(self, name, email, password, subjects=None):
         self.id = self.generate_id()
         self.name = name
         self.email = email
         self.password = password
-        self.subjects = []
+        self.subjects = subjects or []
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "email": self.email,
+            "password": self.password,
+            "subjects": [subj.__dict__ for subj in self.subjects]
+        }
 
     def generate_id(self):
         """

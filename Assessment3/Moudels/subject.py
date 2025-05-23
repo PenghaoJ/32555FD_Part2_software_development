@@ -5,11 +5,11 @@ class Subject:
     # 用于存储已生成的 ID，确保不重复
     generated_ids = set()
 
-    def __init__(self, name):
-        self.id = self.generate_id()
+    def __init__(self, name, subj_id=None, mark=None, grade=None):
+        self.id = subj_id if subj_id else self.generate_id()
         self.name = name
-        self.mark = random.randint(25, 100)
-        self.grade = self.calculate_grade()
+        self.mark = mark if mark is not None else random.randint(25, 100)
+        self.grade = grade if grade else self.calculate_grade()
 
     def generate_id(self):
         """
@@ -23,9 +23,6 @@ class Subject:
                 return new_id
 
     def calculate_grade(self):
-        """
-        根据分数计算等级。
-        """
         if self.mark >= 85:
             return "HD"
         elif self.mark >= 75:
